@@ -1,6 +1,9 @@
 import { Icons } from "@/components/icons";
 import { NavItem, SidebarNavItem } from "@/types";
 
+
+require('dotenv').config();
+
 export type User = {
   id: number;
   name: string;
@@ -149,3 +152,18 @@ export const navItems: NavItem[] = [
     label: "login",
   },
 ];
+
+export const API_ENDPOINTS = {
+  BRANDS : `http://${process.env.API_HOST}:${process.env.API_PORT}/brands`,
+  CATEGORY : `http://${process.env.API_HOST}:${process.env.API_PORT}/categories`,
+  DEVICE : `http://${process.env.API_HOST}:${process.env.API_PORT}/devices`,
+  QUOTE : `http://${process.env.API_HOST}:${process.env.API_PORT}/quotes`,
+  MARKUP_RULE : `http://${process.env.API_HOST}:${process.env.API_PORT}/markuprules`,
+  DEVICE_PARTS : `http://${process.env.API_HOST}:${process.env.API_PORT}/deviceparts`,
+  REPAIR_SHOP : `http://${process.env.API_HOST}:${process.env.API_PORT}/repair-shops`,
+  LOGIN : `http://${process.env.API_HOST}:${process.env.API_PORT}/login`,
+
+
+
+} as const;
+

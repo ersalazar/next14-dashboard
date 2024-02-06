@@ -38,14 +38,18 @@
     "@types/react-dom": "18.2.7",
     "@uploadthing/react": "^5.7.0",
     "autoprefixer": "10.4.15",
+    "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "cookie": "^0.6.0",
     "date-fns": "^2.30.0",
     "eslint": "8.48.0",
     "eslint-config-next": "^14.0.1",
+    "express": "^4.18.2",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.291.0",
     "next": "^14.0.1",
-    "next-auth": "^4.24.4",
+    "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "postcss": "8.4.28",
     "react": "^18.2.0",
@@ -64,6 +68,8 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/express": "^4.17.21",
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "prettier": "3.0.3"

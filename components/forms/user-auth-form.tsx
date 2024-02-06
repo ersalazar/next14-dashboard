@@ -16,9 +16,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import GoogleSignInButton from "../github-auth-button";
+import axios, { AxiosError } from "axios";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
+  password: z.string(),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -36,11 +38,26 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    signIn("credentials", {
-      email: data.email,
-      callbackUrl: callbackUrl ?? "/dashboard",
-    });
+    setLoading(true);
+    try {
+      const apiHost = process.env.api_host;
+      const apiPort = process.env.api_port;
+      const apiUrl = `http://${apiHost}:${apiPort}/login`; 
+      // Send the request directly in the onSubmit function
+      alert(apiUrl);
+      const response = await axios.post(apiUrl, data);
+      console.log('Login successful:', response.data);
+      alert(response.data);
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error('Login failed:', e.message);
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
   };
+  
+  
 
   return (
     <>
@@ -58,7 +75,7 @@ export default function UserAuthForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Enter your email..."
+                    placeholder="Ingrese su correo..."
                     disabled={loading}
                     {...field}
                   />
@@ -67,12 +84,30 @@ export default function UserAuthForm() {
               </FormItem>
             )}
           />
-
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Ingrese su contraseña..."
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Continue With Email
+            {loading ? "Cargando..." : "Ingesar"}
           </Button>
         </form>
       </Form>
+    {/*
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
@@ -84,6 +119,7 @@ export default function UserAuthForm() {
         </div>
       </div>
       <GoogleSignInButton />
+    */}
     </>
   );
 }
